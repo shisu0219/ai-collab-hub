@@ -56,6 +56,10 @@ application-prod.yml
 # 下划线开头的是开发期一次性脚本（已并入 ai_collab_hub.sql），不提交
 ai-collab-hub-server/sql/_*.sql
 
+# ---------- Office 临时锁文件（Word/Excel 打开时生成）----------
+~$*
+.~lock.*
+
 # ---------- 其他 ----------
 *.bak
 *.bak[0-9]
