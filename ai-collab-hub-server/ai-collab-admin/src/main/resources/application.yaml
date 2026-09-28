@@ -1,0 +1,111 @@
+# ============================================================
+# 人工智能学院双创平台 - 主配置文件
+#
+# 【安全说明】涉及密码的地方都写成了 ${环境变量:默认值} 的形式：
+#   - 本地开发：直接用默认值就能跑（不用配环境变量）
+#   - 正式部署：用环境变量覆盖，别把真实密码写进这个文件
+#
+# 需要覆盖的环境变量：
+#   DB_USERNAME    数据库用户名（默认 root）
+#   DB_PASSWORD    数据库密码（默认 123123）
+#   REDIS_PASSWORD Redis 密码（默认空）
+#   JWT_SECRET     JWT 签名密钥（正式环境务必换成随机串，≥32 位）
+# ============================================================
+
+server:
+  port: 28848
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: ai-collab-hub
+
+  # ---------- 数据源 ----------
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/ai_collab_hub?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123123}
+
+  # ---------- Redis ----------
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      password: ${REDIS_PASSWORD:}
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+
+  # ---------- 文件上传 ----------
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1024MB
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+# ---------- MyBatis-Plus ----------
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.qll.ucch.models.po
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: assign_id
+      logic-delete-field: deleteTime
+      logic-delete-value: now()
+      logic-not-delete-value: "null"
+
+# ---------- 接口文档 Knife4j ----------
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+# ---------- 平台自定义配置 ----------
+ai-collab:
+  # JWT 相关
+  # secret 用环境变量覆盖（JWT_SECRET），默认值只够本地开发用。
+  # 正式部署务必换成随机串，长度至少 32 位（比如 openssl rand -base64 48 生成一个）。
+  jwt:
+    secret: ${JWT_SECRET:AiCollabHubDefaultSigningValueChangeMe2026}
+    expire: 604800000   # 7 天，单位毫秒
+  # 文件上传根目录，留空则默认取当前运行目录下的 WebFile
+  upload:
+    root-dir: ""
+    # 对外访问前缀，配合 Nginx 静态映射
+    visit-prefix: "/WebFile"
+  # 平台名称，页面上会用到
+  platform-name: "人工智能学院双创平台"
+
+# ---------- 日志 ----------
+logging:
+  level:
+    root: info
+    com.qll.ucch: debug
+  file:
+    name: logs/AiCollabHub.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30

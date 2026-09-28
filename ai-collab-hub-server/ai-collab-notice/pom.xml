@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.qll</groupId>
+        <artifactId>ai-collab-hub</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>ai-collab-notice</artifactId>
+    <packaging>jar</packaging>
+    <name>ai-collab-notice</name>
+    <description>消息通知模块：站内消息 + 站内会话</description>
+
+    <dependencies>
+        <!-- 公共模块：统一响应、通用异常、PageResult 等 -->
+        <dependency>
+            <groupId>com.qll</groupId>
+            <artifactId>ai-collab-common</artifactId>
+        </dependency>
+
+        <!-- 集成模块：文件上传 / SecurityContext 取当前登录用户 -->
+        <dependency>
+            <groupId>com.qll</groupId>
+            <artifactId>ai-collab-integration</artifactId>
+        </dependency>
+
+        <!-- MyBatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+
+        <!-- Hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <!-- Spring 基础（@Service / @Transactional） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>
