@@ -422,13 +422,29 @@ INSERT INTO sys_reject_template (id, scene, content, sort, enable) VALUES
     (8, 2, '联系方式缺失，请补充后重新提交', 8, 1)
 ON DUPLICATE KEY UPDATE content = VALUES(content);
 
--- 默认管理员账号：admin / Admin@123
--- 密码为 BCrypt 加密后的密文（对应明文 Admin@123，登录后请尽快修改）
--- 注：这个密文是用 BCryptPasswordEncoder（strength=10，$2a$ 前缀）生成的，
---     和 Spring Security 的 BCryptPasswordEncoder 完全兼容。
+-- ============================================================
+-- 默认管理员账号
+-- ============================================================
+--
+-- ⚠️ 首次部署后请**立即按下面步骤自己生成密码**，不要用示例值。
+--
+-- 【为什么要你自己生成】
+--   这里没有写死任何真实密码的密文。下面那个 password 值是 BCrypt 的
+--   占位示例（对应明文 "ChangeMe@123"），只是为了建库脚本能直接跑通。
+--   正式使用前请把管理员密码改成你自己的。
+--
+-- 【怎么生成你自己的 BCrypt 密文】
+--   方式1（推荐）：先用示例密码登录后台，在「个人中心 → 修改密码」里改
+--   方式2：用 Java 生成，然后手动 update 数据库：
+--          new BCryptPasswordEncoder().encode("你的新密码")
+--   方式3：用在线工具（注意选 BCrypt / $2a$ 版本），生成后替换下面这行
+--
+-- 【密文格式说明】
+--   $2a$10$...  = BCrypt，strength=10
+--   与 Spring Security 的 BCryptPasswordEncoder 完全兼容
 INSERT INTO sys_user (id, account, password, email, phone, nickname, enable, audit_status)
-VALUES (1, 'admin', '$2a$10$8ua8GJx.QuUfa.8O.M7M6.T/JcnIkPj6NXekzG57CXwmAA0lVhzki',
-        'admin@shzq.edu.cn', NULL, '系统管理员', 1, 1)
+VALUES (1, 'admin', '$2a$10$9DuI4j3KxIbhnJcgydCMPOyyAHGFmrtMAvqNPZQ9.36I0nonXqRGO',
+        'admin@example.edu.cn', NULL, '系统管理员', 1, 1)
 ON DUPLICATE KEY UPDATE nickname = VALUES(nickname);
 
 INSERT INTO sys_user_role (id, user_id, role_id) VALUES (1, 1, 1)

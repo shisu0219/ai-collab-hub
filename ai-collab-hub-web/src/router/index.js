@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getToken, getRoleId, getRoleCode, clearLoginState } from '@/utils/authSession'
 import { ROLE_ID } from '@/utils/roleDisplay'
@@ -188,7 +188,20 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  /*
+   * 【为什么用 hash 模式而不是 history】
+   *
+   * 这个前端要部署到 GitHub Pages（静态托管），它没有服务端路由回退能力。
+   * history 模式下，用户直接访问 /cooperation/chat 或在页面里按 F5，
+   * 服务器找不到这个路径对应的文件 -> 404。
+   *
+   * hash 模式把路由放在 # 后面（如 /#/cooperation/chat），
+   * 井号后的内容浏览器不会发给服务器，所以刷新、分享链接都能正常打开。
+   *
+   * 代价：网址里多个 #，看着不如 history 干净。但对纯静态托管来说这是标配做法。
+   * 如果以后部署到自己的服务器（能用 Nginx 配 try_files 回退），可以换回 history。
+   */
+  history: createWebHashHistory(),
   routes,
   scrollBehavior() {
     return { top: 0 }

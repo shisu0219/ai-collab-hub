@@ -6,9 +6,17 @@ import { clearLoginState, getToken } from '@/utils/authSession'
 /**
  * axios 统一封装。
  * 请求自动带 token，响应统一剥壳，401 自动跳登录页。
+ *
+ * 【baseURL 为什么这么写】
+ *   本地开发：用 '/api'，由 Vite 的 proxy 转发到 localhost:28848（同源，不跨域）
+ *   部署之后：静态托管（如 GitHub Pages）没有代理服务，
+ *            必须直连后端绝对地址 —— 由构建时注入的 VITE_API_BASE 提供，
+ *            比如 https://xxx.example.com/api
+ *
+ * .env.production 里配 VITE_API_BASE，本地不配就用默认的 '/api'。
  */
 const request = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_BASE || '/api',
   timeout: 30000
 })
 

@@ -38,7 +38,7 @@ public class ResetPasswordDTO implements Serializable {
     @NotBlank(message = "账号不能为空")
     private String account;
 
-    @Schema(description = "注册时填写的邮箱", example = "zhangsan@shzq.edu.cn")
+    @Schema(description = "注册时填写的邮箱", example = "zhangsan@example.edu.cn")
     @NotBlank(message = "邮箱不能为空")
     @Email(message = "邮箱格式不正确")
     private String email;

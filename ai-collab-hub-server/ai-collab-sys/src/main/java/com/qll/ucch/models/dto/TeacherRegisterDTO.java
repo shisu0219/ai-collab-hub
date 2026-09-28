@@ -34,7 +34,7 @@ public class TeacherRegisterDTO implements Serializable {
     @Pattern(regexp = SysConstants.PASSWORD_REGEX, message = SysConstants.PASSWORD_TIP)
     private String password;
 
-    @Schema(description = "邮箱", example = "wang@shzq.edu.cn")
+    @Schema(description = "邮箱", example = "wang@example.edu.cn")
     // 【本次修正】邮箱改为选填：去掉 @NotBlank。
     // @Email 保留 —— 它只在值非空时校验格式，空值直接放行，正好是「选填但填了要合法」。
     @Email(message = "邮箱格式不正确")

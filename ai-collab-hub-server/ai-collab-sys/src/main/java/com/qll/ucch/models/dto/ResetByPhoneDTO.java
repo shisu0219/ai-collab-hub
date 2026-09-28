@@ -29,7 +29,7 @@ public class ResetByPhoneDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "账号", example = "stu925392")
+    @Schema(description = "账号", example = "zhangsan")
     @NotBlank(message = "账号不能为空")
     private String account;
 

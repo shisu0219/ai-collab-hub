@@ -23,7 +23,7 @@ public class UpdateUserInfoDTO implements Serializable {
     @Size(max = 64, message = "昵称长度不能超过64")
     private String nickname;
 
-    @Schema(description = "邮箱", example = "zhangsan@shzq.edu.cn")
+    @Schema(description = "邮箱", example = "zhangsan@example.edu.cn")
     @Email(message = "邮箱格式不正确")
     @Size(max = 128, message = "邮箱长度不能超过128")
     private String email;
