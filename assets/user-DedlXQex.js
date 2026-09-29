@@ -1,1 +1,0 @@
-import{r}from"./_plugin-vue_export-helper-DZKJNQS8.js";function u(){return r({url:"/user/info",method:"get"})}function n(e){return r({url:"/user/info",method:"put",data:e})}function o(e){return r({url:`/user/info/${e}`,method:"get"})}export{u as a,o as g,n as u};
