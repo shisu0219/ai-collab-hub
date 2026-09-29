@@ -1,0 +1,1 @@
+import{r as t}from"./_plugin-vue_export-helper-DZKJNQS8.js";function o(){return t({url:"/blog/meta/apply-options",method:"get"})}function r(){return t({url:"/blog/meta/skills",method:"get"})}export{o as a,r as g};
